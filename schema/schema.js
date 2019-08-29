@@ -1,7 +1,7 @@
 //DEFINING THE DATA STRUCTURE HERE
 // Basically we want to tell how the data is related inside of it
 // It Tells basically how is the DATA of Application is defined...
-const lodash=require('lodash')
+const _=require('lodash')
 const graphql=require('graphql')
 const{
     GraphQLObjectType,
@@ -14,7 +14,7 @@ const{
 const users = [
     {id:"23",firstName:"Bill",age:20},
     {id:"47",firstName:"Samantha",age:32}
-]
+];
 
 
 const UserType/*Tells the graphql about how the user object is
