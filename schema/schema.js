@@ -1,7 +1,9 @@
 //DEFINING THE DATA STRUCTURE HERE
 // Basically we want to tell how the data is related inside of it
 // It Tells basically how is the DATA of Application is defined...
-const _=require('lodash')
+const _=require('lodash')//required for static data
+const axios=require('axios')
+
 const graphql=require('graphql')
 const{
     GraphQLObjectType,
@@ -36,10 +38,21 @@ const RootQuery = new GraphQLObjectType({
             type: UserType,
             args: {id:{type:GraphQLString}},
             resolve(parentValue,args){
+                /*resolve handles promises automatically */
+
                 //HERE WE ACTUALLY GO INTO THE DATASTORE/DATABASE
                 //AND GRAB THE DATA AND RETURNING IT
                 //args : it gets passed with the args field in the RootQuery
-                return _.find(users,{id:args.id})//lodash
+            /*--    return _.find(users,{id:args.id})  ---*///lodash
+
+                /*WE CAN ALSO SEND PROMISES TO THE GRAPHQL
+                SERVER AND IT SENDS OUT THE DATA AFTER THE 
+                PROMISE GETS RESOLVED AND AFTER THAT GRAPHQL
+                RETURNS DATA TO US (AUTOMATIC HAPPENS )...IT HELPS US TO ACCESS DATA
+                ASYNCHRONOUSLY FROM OUTSIDE API.*/
+                return axios.get(`http://localhost:3000/users/${args.id}`)
+                .then((response)=>{return response.data})//this needs to be done because
+                //graphql doesnot know that the returned promised data is in data nesting
             }
         }
     }

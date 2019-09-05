@@ -16,3 +16,5 @@ app.use('/graphql',expressGraphQl({
 app.listen(4000,()=>{
     console.log("Listening")
 })
+//JSON SERVER Helps in creating a proxy servers to serve out some little 
+//amount of data
